@@ -6,6 +6,8 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val MIN_OPENGL_VERSION = 3.0
     }
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewManager: RecyclerView.LayoutManager
 
     lateinit var arFragment: FaceArFragment
     private var faceMeshTexture: Texture? = null
@@ -28,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     private var faceRegionsRenderable: ModelRenderable? = null
 
     var faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
-    
+
     private var changeModel: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +43,23 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_main)
+
+        val myDataset = GetAvailableFilter()
+
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = MyAdapter(myDataset)
+
+        recyclerView = findViewById<RecyclerView>(R.id.rv_filter).apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(true)
+
+            // use a linear layout manager
+            layoutManager = viewManager
+
+            // specify an viewAdapter (see also next example)
+            adapter = viewAdapter
+        }
 
         arFragment = face_fragment as FaceArFragment
         Texture.builder()
@@ -97,6 +119,15 @@ class MainActivity : AppCompatActivity() {
                     }
             }
         }
+    }
+
+    private fun GetAvailableFilter(): ArrayList<FilterItem>? {
+        return object : ArrayList<FilterItem>() {
+            init {
+                add(FilterItem(R.drawable.mustache1, "Mustache 1"))
+            }
+        }
+
     }
 
     fun checkIsSupportedDeviceOrFinish() : Boolean {
