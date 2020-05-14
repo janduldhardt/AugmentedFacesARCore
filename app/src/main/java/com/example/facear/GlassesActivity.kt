@@ -16,7 +16,7 @@ import com.google.ar.sceneform.ux.AugmentedFaceNode
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class GlassesActivity : AppCompatActivity() {
 
     companion object {
         const val MIN_OPENGL_VERSION = 3.0
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var faceRegionsRenderable: ModelRenderable? = null
 
     var faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
-    
+    private var index: Int = 0
     private var changeModel: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,13 +40,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         arFragment = face_fragment as FaceArFragment
-        Texture.builder()
-            .setSource(this, R.drawable.mustache1)
-            .build()
-            .thenAccept { texture -> faceMeshTexture = texture }
 
         ModelRenderable.builder()
-            .setSource(this,R.raw.fox_face)
+            .setSource(this, R.raw.yellow_sunglasses)
             .build()
             .thenAccept { modelRenderable ->
                 glasses.add(modelRenderable)
@@ -56,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         ModelRenderable.builder()
-            .setSource(this,R.raw.yellow_sunglasses)
+            .setSource(this, R.raw.sunglasses)
             .build()
             .thenAccept { modelRenderable ->
                 glasses.add(modelRenderable)
