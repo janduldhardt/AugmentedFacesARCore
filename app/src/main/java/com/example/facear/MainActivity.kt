@@ -2,7 +2,6 @@ package com.example.facear
 
 import android.app.ActivityManager
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -23,8 +22,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val MIN_OPENGL_VERSION = 3.0
     }
+
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewAdapter: RecyclerView.Adapter<*>
+    private lateinit var viewAdapter: MyAdapter
     private lateinit var viewManager: RecyclerView.LayoutManager
 
     lateinit var arFragment: FaceArFragment
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     var faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
     private var changeModel: Boolean = false
+    private var isChangeTexture: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +47,13 @@ class MainActivity : AppCompatActivity() {
 
         val myDataset = GetAvailableFilter()
 
-        viewManager = LinearLayoutManager(this)
+        viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         viewAdapter = MyAdapter(myDataset)
+        viewAdapter.setOnItemClickListener { position ->
+            var filterItem = myDataset.get(position)
+            if (filterItem.imageResourceType == imageResourceType.TEXTURE)
+                changeTexture(filterItem.imageResource)
+        }
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_filter).apply {
             // use this setting to improve performance if you know that changes
@@ -68,7 +74,7 @@ class MainActivity : AppCompatActivity() {
             .thenAccept { texture -> faceMeshTexture = texture }
 
         ModelRenderable.builder()
-            .setSource(this,R.raw.fox_face)
+            .setSource(this, R.raw.fox_face)
             .build()
             .thenAccept { modelRenderable ->
                 glasses.add(modelRenderable)
@@ -78,7 +84,7 @@ class MainActivity : AppCompatActivity() {
             }
 
         ModelRenderable.builder()
-            .setSource(this,R.raw.yellow_sunglasses)
+            .setSource(this, R.raw.yellow_sunglasses)
             .build()
             .thenAccept { modelRenderable ->
                 glasses.add(modelRenderable)
@@ -101,7 +107,11 @@ class MainActivity : AppCompatActivity() {
                                 faceNode.faceRegionsRenderable = faceRegionsRenderable
                                 faceNodeMap.put(f, faceNode)
                             } else if (changeModel) {
-                                faceNodeMap.getValue(f).faceRegionsRenderable = faceRegionsRenderable
+                                faceNodeMap.getValue(f).faceRegionsRenderable =
+                                    faceRegionsRenderable
+                            } else if (isChangeTexture) {
+                                faceNodeMap.getValue(f).faceMeshTexture =
+                                    faceMeshTexture
                             }
                         }
                         changeModel = false
@@ -121,22 +131,37 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun GetAvailableFilter(): ArrayList<FilterItem>? {
+    private fun changeTexture(imageResource: Int) {
+
+        Texture.builder()
+            .setSource(this, imageResource)
+            .build()
+            .thenAccept { texture ->
+                faceMeshTexture = texture
+            }
+
+        isChangeTexture = true
+
+    }
+
+    private fun GetAvailableFilter(): ArrayList<FilterItem> {
         return object : ArrayList<FilterItem>() {
             init {
-                add(FilterItem(R.drawable.mustache1, "Mustache 1"))
+                add(FilterItem(R.drawable.mustache1, imageResourceType.TEXTURE, "Mustache 1"))
+                add(FilterItem(R.drawable.redlips, imageResourceType.TEXTURE, "Red Lips"))
+                add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
             }
         }
 
     }
 
-    fun checkIsSupportedDeviceOrFinish() : Boolean {
+    fun checkIsSupportedDeviceOrFinish(): Boolean {
         if (ArCoreApk.getInstance().checkAvailability(this) == ArCoreApk.Availability.UNSUPPORTED_DEVICE_NOT_CAPABLE) {
             Toast.makeText(this, "Augmented Faces requires ARCore", Toast.LENGTH_LONG).show()
             finish()
             return false
         }
-        val openGlVersionString =  (getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager)
+        val openGlVersionString = (getSystemService(Context.ACTIVITY_SERVICE) as? ActivityManager)
             ?.deviceConfigurationInfo
             ?.glEsVersion
 
