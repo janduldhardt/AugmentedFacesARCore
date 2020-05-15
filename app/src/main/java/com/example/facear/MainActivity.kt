@@ -16,6 +16,7 @@ import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.AugmentedFaceNode
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.ArrayList
+import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,25 +48,8 @@ class MainActivity : AppCompatActivity() {
 
         val myDataset = GetAvailableFilter()
 
-        viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        viewAdapter = MyAdapter(myDataset)
-        viewAdapter.setOnItemClickListener { position ->
-            var filterItem = myDataset.get(position)
-            if (filterItem.imageResourceType == imageResourceType.TEXTURE)
-                changeTexture(filterItem.imageResource)
-        }
+        SetRecyclerView(myDataset)
 
-        recyclerView = findViewById<RecyclerView>(R.id.rv_filter).apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
-        }
 
         arFragment = face_fragment as FaceArFragment
         Texture.builder()
@@ -115,6 +99,8 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         changeModel = false
+                        isChangeTexture = false
+
                         // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
                         val iter = faceNodeMap.entries.iterator()
                         while (iter.hasNext()) {
@@ -131,17 +117,36 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeTexture(imageResource: Int) {
+    private fun SetRecyclerView(myDataset: ArrayList<FilterItem>) {
+        viewManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        viewAdapter = MyAdapter(myDataset)
+        viewAdapter.setOnItemClickListener { position ->
+            var filterItem = myDataset.get(position)
+            if (filterItem.imageResourceType == imageResourceType.TEXTURE)
+                changeTexture(filterItem.imageResource)
+        }
 
+        recyclerView = findViewById<RecyclerView>(R.id.rv_filter).apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(true)
+
+            // use a linear layout manager
+            layoutManager = viewManager
+
+            // specify an viewAdapter (see also next example)
+            adapter = viewAdapter
+        }
+    }
+
+    private fun changeTexture(imageResource: Int) {
         Texture.builder()
             .setSource(this, imageResource)
             .build()
             .thenAccept { texture ->
                 faceMeshTexture = texture
+                isChangeTexture = true
             }
-
-        isChangeTexture = true
-
     }
 
     private fun GetAvailableFilter(): ArrayList<FilterItem> {
