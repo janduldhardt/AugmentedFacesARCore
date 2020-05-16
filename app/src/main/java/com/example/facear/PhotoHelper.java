@@ -46,7 +46,7 @@ public class PhotoHelper {
                     toast.show();
                     return;
                 }
-                Snackbar snackbar = Snackbar.make(mainView.findViewById(android.R.id.content),
+                Snackbar snackbar = Snackbar.make(mainView,
                         "Photo saved", Snackbar.LENGTH_LONG);
                 snackbar.setAction("Open in Photos", v -> {
                     File photoFile = new File(filename);
@@ -57,6 +57,7 @@ public class PhotoHelper {
                     Intent intent = new Intent(Intent.ACTION_VIEW, photoURI);
                     intent.setDataAndType(photoURI, "image/*");
                     intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
 
                 });

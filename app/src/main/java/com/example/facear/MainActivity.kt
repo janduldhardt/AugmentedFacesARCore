@@ -100,7 +100,16 @@ class MainActivity : AppCompatActivity() {
         val scene = sceneView.scene
 
         fap.setOnClickListener {
-            photoHelper.takePhoto(this, arFragment.arSceneView, this.findViewById(android.R.id.content))
+            photoHelper.takePhoto(
+                this.applicationContext,
+                arFragment.arSceneView,
+                coordinator
+            )
+//            val snackBar = Snackbar.make(
+//                coordinator,
+//                "Look at me, I'm a fancy snackbar", Snackbar.LENGTH_LONG
+//            );
+//            snackBar.show();
         }
 
         scene.addOnUpdateListener {
@@ -178,8 +187,20 @@ class MainActivity : AppCompatActivity() {
                 add(FilterItem(R.drawable.mustache1, imageResourceType.TEXTURE, "Mustache 1"))
                 add(FilterItem(R.drawable.redlips, imageResourceType.TEXTURE, "Red Lips"))
                 add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
-                add(FilterItem(R.drawable.blackeyelash, imageResourceType.TEXTURE, "black eye lash"))
-                add(FilterItem(R.drawable.harrypotterscar, imageResourceType.TEXTURE, "harry potter scar"))
+                add(
+                    FilterItem(
+                        R.drawable.blackeyelash,
+                        imageResourceType.TEXTURE,
+                        "black eye lash"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.harrypotterscar,
+                        imageResourceType.TEXTURE,
+                        "harry potter scar"
+                    )
+                )
             }
         }
 
