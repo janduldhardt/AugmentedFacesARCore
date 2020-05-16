@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.HandlerThread
+import android.view.KeyEvent
 import android.view.PixelCopy
 import android.view.ViewGroup
 import android.widget.Toast
@@ -53,6 +54,18 @@ class MainActivity : AppCompatActivity() {
     private var changeModel: Boolean = false
     private var isChangeTexture: Boolean = false
 
+    val photoHelper = PhotoHelper()
+
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            photoHelper.takePhoto(this, arFragment.arSceneView, coordinator)
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!checkIsSupportedDeviceOrFinish()) {
@@ -60,8 +73,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         setContentView(R.layout.activity_main)
-
-        val photoHelper = PhotoHelper()
 
 
         val myDataset = GetAvailableFilter()
