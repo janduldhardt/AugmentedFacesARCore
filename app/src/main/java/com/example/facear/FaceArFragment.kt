@@ -1,5 +1,6 @@
 package com.example.facear
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,21 @@ import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.sceneform.ux.ArFragment
 import java.util.*
+import android.Manifest.permission
+import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+
 
 class FaceArFragment : ArFragment() {
+
+
+    override fun getAdditionalPermissions(): Array<String> {
+        val additionalPermission = super.getAdditionalPermissions()
+        val permissions = arrayListOf<String>(WRITE_EXTERNAL_STORAGE,*additionalPermission)
+
+        return permissions.toTypedArray()
+    }
+
     override fun getSessionConfiguration(session: Session?): Config {
         val config = Config(session)
         config.augmentedFaceMode = Config.AugmentedFaceMode.MESH3D

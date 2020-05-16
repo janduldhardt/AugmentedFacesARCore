@@ -2,11 +2,20 @@ package com.example.facear
 
 import android.app.ActivityManager
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Environment
+import android.os.Handler
+import android.os.HandlerThread
+import android.view.PixelCopy
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
@@ -15,8 +24,14 @@ import com.google.ar.sceneform.rendering.Renderable
 import com.google.ar.sceneform.rendering.Texture
 import com.google.ar.sceneform.ux.AugmentedFaceNode
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.ArrayList
-import kotlin.concurrent.thread
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +61,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
+        val photoHelper = PhotoHelper()
+
+
         val myDataset = GetAvailableFilter()
 
         SetRecyclerView(myDataset)
@@ -57,8 +75,9 @@ class MainActivity : AppCompatActivity() {
             .build()
             .thenAccept { texture -> faceMeshTexture = texture }
 
+
         ModelRenderable.builder()
-            .setSource(this, R.raw.fox_face)
+            .setSource(this, R.raw.sunglasses)
             .build()
             .thenAccept { modelRenderable ->
                 glasses.add(modelRenderable)
@@ -79,6 +98,10 @@ class MainActivity : AppCompatActivity() {
         val sceneView = arFragment.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
         val scene = sceneView.scene
+
+        fap.setOnClickListener {
+            photoHelper.takePhoto(this, arFragment.arSceneView, this.findViewById(android.R.id.content))
+        }
 
         scene.addOnUpdateListener {
             if (faceRegionsRenderable != null) {
@@ -155,6 +178,8 @@ class MainActivity : AppCompatActivity() {
                 add(FilterItem(R.drawable.mustache1, imageResourceType.TEXTURE, "Mustache 1"))
                 add(FilterItem(R.drawable.redlips, imageResourceType.TEXTURE, "Red Lips"))
                 add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
+                add(FilterItem(R.drawable.blackeyelash, imageResourceType.TEXTURE, "black eye lash"))
+                add(FilterItem(R.drawable.harrypotterscar, imageResourceType.TEXTURE, "harry potter scar"))
             }
         }
 
