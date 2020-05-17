@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
-    <!-- This tag indicates that this application requires ARCore. This results in the application
-        only being visible in the Google Play Store on devices that support ARCore. -->
+    <!--
+ This tag indicates that this application requires ARCore. This results in the application
+        only being visible in the Google Play Store on devices that support ARCore.
+    -->
     <uses-feature
         android:name="android.hardware.camera.ar"
         android:required="true" />
@@ -20,8 +21,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".LauncherActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".SingleFilterActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,9 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.ar.core"
             android:value="required" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.ar.codelab.name.provider"
