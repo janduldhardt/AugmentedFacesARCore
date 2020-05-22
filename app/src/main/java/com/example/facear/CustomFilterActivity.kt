@@ -20,6 +20,8 @@ class CustomFilterActivity : AppCompatActivity() {
     lateinit var arFragment: FaceArFragment
     var faceNodeMap = HashMap<AugmentedFace, CustomFaceNode>()
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!checkIsSupportedDeviceOrFinish()) {
@@ -28,8 +30,6 @@ class CustomFilterActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_custom_filter)
         arFragment = face_fragment as FaceArFragment
-
-//        button_refresh.visibility = View.GONE
 
         val sceneView = arFragment.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
@@ -40,7 +40,7 @@ class CustomFilterActivity : AppCompatActivity() {
                 ?.getAllTrackables(AugmentedFace::class.java)?.let {
                     for (f in it) {
                         if (!faceNodeMap.containsKey(f)) {
-                            val faceNode = CustomFaceNode(f, this)
+                            val faceNode = CustomFaceNode(f, this, R.drawable.star, R.drawable.star, R.drawable.star)
                             faceNode.setParent(scene)
                             faceNodeMap.put(f, faceNode)
                         }
