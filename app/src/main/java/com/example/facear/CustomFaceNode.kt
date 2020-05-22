@@ -12,12 +12,14 @@ import com.google.ar.sceneform.ux.AugmentedFaceNode
 
 class CustomFaceNode(
     augmentedFace: AugmentedFace?,
-    val context: Context, val leftEyeRes: Int, val rightEyeRes: Int, noseRes: Int
+    val context: Context, val leftEyeRes: Int, val rightEyeRes: Int,val noseRes: Int
 ) : AugmentedFaceNode(augmentedFace) {
+
 
     private var eyeNodeLeft: Node? = null
     private var eyeNodeRight: Node? = null
     private var mustacheNode: Node? = null
+
 
     companion object {
         enum class FaceRegion {
@@ -96,7 +98,7 @@ class CustomFaceNode(
                 uiRenderable.isShadowReceiver = false
                 mustacheNode?.renderable = uiRenderable
                 uiRenderable.view.findViewById<ImageView>(R.id.element_image)
-                    .setImageResource(rightEyeRes)
+                    .setImageResource(noseRes)
             }
             .exceptionally { throwable: Throwable? ->
                 throw AssertionError(

@@ -10,7 +10,9 @@ import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.rendering.Renderable
+import kotlinx.android.synthetic.main.activity_custom_filter.*
 import kotlinx.android.synthetic.main.activity_single_filter.*
+import kotlinx.android.synthetic.main.activity_single_filter.face_fragment
 
 class CustomFilterActivity : AppCompatActivity() {
     companion object {
@@ -30,6 +32,10 @@ class CustomFilterActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_custom_filter)
         arFragment = face_fragment as FaceArFragment
+
+        btn_face.setOnClickListener {
+            faceButtonClicked()
+        }
 
         val sceneView = arFragment.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
@@ -58,6 +64,10 @@ class CustomFilterActivity : AppCompatActivity() {
                     }
                 }
         }
+    }
+
+    private fun faceButtonClicked() {
+        TODO("Not yet implemented")
     }
 
     private fun checkIsSupportedDeviceOrFinish() : Boolean {

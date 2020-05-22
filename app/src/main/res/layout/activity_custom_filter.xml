@@ -24,6 +24,18 @@
     </FrameLayout>
 
     <ImageButton
+        android:id="@+id/btn_face"
+        android:layout_width="77dp"
+        android:layout_height="78dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/ic_face_black_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/fap"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        android:contentDescription="Face Button change filters" />
+
+    <ImageButton
         android:id="@+id/fap"
         android:layout_width="77dp"
         android:layout_height="78dp"
