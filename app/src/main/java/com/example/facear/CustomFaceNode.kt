@@ -12,20 +12,24 @@ import com.google.ar.sceneform.ux.AugmentedFaceNode
 
 class CustomFaceNode(
     augmentedFace: AugmentedFace?,
-    val context: Context, val leftEyeRes: Int, val rightEyeRes: Int,val noseRes: Int
+    val context: Context, val leftEyeRes: Int, val rightEyeRes: Int,val noseRes: Int, val mouthRes :Int, val mustacheRes : Int
 ) : AugmentedFaceNode(augmentedFace) {
 
 
     private var eyeNodeLeft: Node? = null
     private var eyeNodeRight: Node? = null
     private var mustacheNode: Node? = null
+    private var mouthNode: Node? = null
+    private var noseNode: Node? = null
 
 
     companion object {
         enum class FaceRegion {
             LEFT_EYE,
             RIGHT_EYE,
-            MUSTACHE
+            MUSTACHE,
+            MOUTH,
+            NOSE
         }
     }
 
@@ -40,21 +44,11 @@ class CustomFaceNode(
         mustacheNode = Node()
         mustacheNode?.setParent(this)
 
-//        ViewRenderable.builder()
-//            .setView(context, R.layout.element_view)
-//            .build()
-//            .thenAccept { uiRenderable: ViewRenderable ->
-//                uiRenderable.isShadowCaster = false
-//                uiRenderable.isShadowReceiver = false
-//                eyeNodeLeft?.renderable = uiRenderable
-//                eyeNodeRight?.renderable = uiRenderable
-//            }
-//            .exceptionally { throwable: Throwable? ->
-//                throw AssertionError(
-//                    "Could not create ui element",
-//                    throwable
-//                )
-//            }
+        noseNode = Node()
+        noseNode?.setParent(this)
+
+        mouthNode = Node()
+        mouthNode?.setParent(this)
 
         ViewRenderable.builder()
             .setView(context, R.layout.element_view)
@@ -98,6 +92,39 @@ class CustomFaceNode(
                 uiRenderable.isShadowReceiver = false
                 mustacheNode?.renderable = uiRenderable
                 uiRenderable.view.findViewById<ImageView>(R.id.element_image)
+                    .setImageResource(mustacheRes)
+            }
+            .exceptionally { throwable: Throwable? ->
+                throw AssertionError(
+                    "Could not create ui element",
+                    throwable
+                )
+            }
+
+        ViewRenderable.builder()
+            .setView(context, R.layout.element_view)
+            .build()
+            .thenAccept { uiRenderable: ViewRenderable ->
+                uiRenderable.isShadowCaster = false
+                uiRenderable.isShadowReceiver = false
+                mouthNode?.renderable = uiRenderable
+                uiRenderable.view.findViewById<ImageView>(R.id.element_image)
+                    .setImageResource(mouthRes)
+            }
+            .exceptionally { throwable: Throwable? ->
+                throw AssertionError(
+                    "Could not create ui element",
+                    throwable
+                )
+            }
+        ViewRenderable.builder()
+            .setView(context, R.layout.element_view)
+            .build()
+            .thenAccept { uiRenderable: ViewRenderable ->
+                uiRenderable.isShadowCaster = false
+                uiRenderable.isShadowReceiver = false
+                noseNode?.renderable = uiRenderable
+                uiRenderable.view.findViewById<ImageView>(R.id.element_image)
                     .setImageResource(noseRes)
             }
             .exceptionally { throwable: Throwable? ->
@@ -122,6 +149,18 @@ class CustomFaceNode(
                         buffer.get(11 * 3 + 1),
                         buffer.get(11 * 3 + 2)
                     )
+                FaceRegion.MOUTH ->
+                    Vector3(
+                        buffer.get(18 * 3),
+                        buffer.get(18 * 3 + 1),
+                        buffer.get(18 * 3 + 2)
+                    )
+                FaceRegion.NOSE ->
+                    Vector3(
+                        buffer.get(19 * 3),
+                        buffer.get(19 * 3 + 1),
+                        buffer.get(19 * 3 + 2)
+                    )
             }
         }
         return null
@@ -131,20 +170,28 @@ class CustomFaceNode(
         super.onUpdate(frameTime)
         augmentedFace?.let { face ->
             getRegionPose(FaceRegion.LEFT_EYE)?.let {
-                eyeNodeLeft?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
-                eyeNodeLeft?.localScale = Vector3(0.055f, 0.055f, 0.055f)
+                eyeNodeLeft?.localPosition = Vector3(it.x, it.y - 0.03f, it.z + 0.015f)
+                eyeNodeLeft?.localScale = Vector3(0.03f, 0.03f, 0.03f)
                 eyeNodeLeft?.localRotation = Quaternion.axisAngle(Vector3(0.0f, 0.0f, 1.0f), -10f)
             }
 
             getRegionPose(FaceRegion.RIGHT_EYE)?.let {
-                eyeNodeRight?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
-                eyeNodeRight?.localScale = Vector3(0.055f, 0.055f, 0.055f)
+                eyeNodeRight?.localPosition = Vector3(it.x, it.y - 0.03f, it.z + 0.015f)
+                eyeNodeRight?.localScale = Vector3(0.03f, 0.03f, 0.03f)
                 eyeNodeRight?.localRotation = Quaternion.axisAngle(Vector3(0.0f, 0.0f, 1.0f), 10f)
             }
 
             getRegionPose(FaceRegion.MUSTACHE)?.let {
                 mustacheNode?.localPosition = Vector3(it.x, it.y - 0.035f, it.z + 0.015f)
                 mustacheNode?.localScale = Vector3(0.07f, 0.07f, 0.07f)
+            }
+            getRegionPose(FaceRegion.NOSE)?.let {
+                noseNode?.localPosition = Vector3(it.x, it.y - 0.015f, it.z + 0.02f)
+                noseNode?.localScale = Vector3(0.03f, 0.03f, 0.03f)
+            }
+            getRegionPose(FaceRegion.MOUTH)?.let {
+                mouthNode?.localPosition = Vector3(it.x, it.y - 0.0075f, it.z + 0.015f)
+                mouthNode?.localScale = Vector3(0.03f, 0.015f, 0.03f)
             }
         }
     }

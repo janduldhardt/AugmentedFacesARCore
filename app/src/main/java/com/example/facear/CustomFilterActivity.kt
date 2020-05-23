@@ -31,9 +31,11 @@ class CustomFilterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_custom_filter)
         arFragment = face_fragment as FaceArFragment
 
-        val message = intent.getIntExtra("leftEyeResId", 0)
-        val message2 = intent.getIntExtra("rightEyeResId", 0)
-        val message3 = intent.getIntExtra("noseResId",0)
+        val leftEyeRes = intent.getIntExtra("leftEyeResId", 0)
+        val rightEyeRes = intent.getIntExtra("rightEyeResId", 0)
+        val noseRes = intent.getIntExtra("noseResId",0)
+        val mustacheRes = intent.getIntExtra("mustacheResId",0)
+        val mouthRes = intent.getIntExtra("mouthResId",0)
 
         btn_face.setOnClickListener {
             faceButtonClicked()
@@ -48,7 +50,7 @@ class CustomFilterActivity : AppCompatActivity() {
                 ?.getAllTrackables(AugmentedFace::class.java)?.let {
                     for (f in it) {
                         if (!faceNodeMap.containsKey(f)) {
-                            val faceNode = CustomFaceNode(f, this, message, message2, message3)
+                            val faceNode = CustomFaceNode(f, this, leftEyeRes, rightEyeRes, noseRes, mouthRes, mustacheRes)
                             faceNode.setParent(scene)
                             faceNodeMap.put(f, faceNode)
                         }

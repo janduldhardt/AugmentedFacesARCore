@@ -19,6 +19,8 @@ class FaceFilterSelectionActivity : AppCompatActivity() {
     var leftEyeResId: Int = -1
     var rightEyeResId: Int = -1
     var noseResId: Int = -1
+    var mustacheResId: Int = -1
+    var mouthResId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,12 +48,24 @@ class FaceFilterSelectionActivity : AppCompatActivity() {
             noseResId = this.currentResId;
         }
 
+        btn_mouth.setOnClickListener {
+            it.background = getDrawable(this.currentResId)
+            mouthResId = this.currentResId;
+        }
+        btn_mustache.setOnClickListener {
+            it.background = getDrawable(this.currentResId)
+            mustacheResId = this.currentResId;
+        }
+
+
 
         btn_apply.setOnClickListener {
             val intent = Intent(this, CustomFilterActivity::class.java).apply {
                 putExtra("leftEyeResId", leftEyeResId)
                 putExtra("rightEyeResId", rightEyeResId)
                 putExtra("noseResId", noseResId)
+                putExtra("mouthResId", mouthResId)
+                putExtra("mustacheResId", mustacheResId)
             }
             startActivity(intent)
         }
@@ -84,7 +98,7 @@ class FaceFilterSelectionActivity : AppCompatActivity() {
             init {
                 add(FilterItem(R.drawable.star, imageResourceType.TEXTURE, "Mustache 1"))
                 add(FilterItem(R.drawable.red_clownnose, imageResourceType.TEXTURE, "Red Lips"))
-                add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
+                add(FilterItem(R.drawable.mustache, imageResourceType.TEXTURE, "first test"))
             }
         }
 
