@@ -18,7 +18,7 @@ class LauncherActivity : AppCompatActivity() {
         }
 
         btn_customFilter.setOnClickListener {
-            val intent = Intent(this, CustomFilterActivity::class.java)
+            val intent = Intent(this, FaceFilterSelectionActivity::class.java)
             startActivity(intent)
         }
     }

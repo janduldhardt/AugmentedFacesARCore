@@ -3,7 +3,6 @@ package com.example.facear
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.ar.core.ArCoreApk
@@ -11,7 +10,6 @@ import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.rendering.Renderable
 import kotlinx.android.synthetic.main.activity_custom_filter.*
-import kotlinx.android.synthetic.main.activity_single_filter.*
 import kotlinx.android.synthetic.main.activity_single_filter.face_fragment
 
 class CustomFilterActivity : AppCompatActivity() {
@@ -33,6 +31,10 @@ class CustomFilterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_custom_filter)
         arFragment = face_fragment as FaceArFragment
 
+        val message = intent.getIntExtra("leftEyeResId", 0)
+        val message2 = intent.getIntExtra("rightEyeResId", 0)
+        val message3 = intent.getIntExtra("noseResId",0)
+
         btn_face.setOnClickListener {
             faceButtonClicked()
         }
@@ -46,7 +48,7 @@ class CustomFilterActivity : AppCompatActivity() {
                 ?.getAllTrackables(AugmentedFace::class.java)?.let {
                     for (f in it) {
                         if (!faceNodeMap.containsKey(f)) {
-                            val faceNode = CustomFaceNode(f, this, R.drawable.star, R.drawable.star, R.drawable.star)
+                            val faceNode = CustomFaceNode(f, this, message, message2, message3)
                             faceNode.setParent(scene)
                             faceNodeMap.put(f, faceNode)
                         }
@@ -67,7 +69,6 @@ class CustomFilterActivity : AppCompatActivity() {
     }
 
     private fun faceButtonClicked() {
-        TODO("Not yet implemented")
     }
 
     private fun checkIsSupportedDeviceOrFinish() : Boolean {
@@ -90,4 +91,5 @@ class CustomFilterActivity : AppCompatActivity() {
         }
         return true
     }
+
 }
