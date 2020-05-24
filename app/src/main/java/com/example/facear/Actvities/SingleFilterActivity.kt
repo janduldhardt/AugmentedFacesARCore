@@ -236,6 +236,13 @@ class SingleFilterActivity : AppCompatActivity() {
                         "harry potter scar"
                     )
                 )
+                add(
+                    FilterItem(
+                        R.drawable.salmon_lips,
+                        imageResourceType.TEXTURE,
+                        "salmon lips"
+                    )
+                )
             }
         }
 
