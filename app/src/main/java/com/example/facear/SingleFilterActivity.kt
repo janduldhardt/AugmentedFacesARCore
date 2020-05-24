@@ -117,7 +117,7 @@ class SingleFilterActivity : AppCompatActivity() {
                             if (!faceNodeMap.containsKey(f)) {
                                 val faceNode = AugmentedFaceNode(f)
                                 faceNode.setParent(scene)
-                                faceNode.faceRegionsRenderable = faceRegionsRenderable
+//                                faceNode.faceRegionsRenderable = faceRegionsRenderable
                                 faceNodeMap.put(f, faceNode)
                             } else if (changeModel) {
                                 faceNodeMap.getValue(f).faceRegionsRenderable =
@@ -184,6 +184,8 @@ class SingleFilterActivity : AppCompatActivity() {
                 add(FilterItem(R.drawable.mustache1, imageResourceType.TEXTURE, "Mustache 1"))
                 add(FilterItem(R.drawable.redlips, imageResourceType.TEXTURE, "Red Lips"))
                 add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
+                add(FilterItem(R.drawable.canonical_face_texture, imageResourceType.TEXTURE, "canonical face texture"))
+                add(FilterItem(R.drawable.canonical_mesh_mustache, imageResourceType.TEXTURE, "canonical face texture"))
                 add(
                     FilterItem(
                         R.drawable.blackeyelash,
