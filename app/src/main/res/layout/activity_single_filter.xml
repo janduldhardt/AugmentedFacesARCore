@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SingleFilterActivity">
+    tools:context=".Actvities.SingleFilterActivity">
 
     <FrameLayout
         android:id="@+id/frameLayout"
@@ -13,7 +13,7 @@
 
         <fragment
             android:id="@+id/face_fragment"
-            android:name="com.example.facear.FaceArFragment"
+            android:name="com.example.facear.Fragments.FaceArFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toTopOf="parent"

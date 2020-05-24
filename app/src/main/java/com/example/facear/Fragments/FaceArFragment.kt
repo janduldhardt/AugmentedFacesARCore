@@ -1,6 +1,5 @@
-package com.example.facear
+package com.example.facear.Fragments
 
-import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import com.google.ar.core.Config
 import com.google.ar.core.Session
 import com.google.ar.sceneform.ux.ArFragment
 import java.util.*
-import android.Manifest.permission
 import android.Manifest.permission.WRITE_EXTERNAL_STORAGE
 
 

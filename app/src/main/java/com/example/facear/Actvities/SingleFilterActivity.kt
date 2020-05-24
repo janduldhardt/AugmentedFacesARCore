@@ -1,4 +1,4 @@
-package com.example.facear
+package com.example.facear.Actvities
 
 import android.app.ActivityManager
 import android.content.Context
@@ -8,6 +8,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facear.*
+import com.example.facear.Data.FilterItem
+import com.example.facear.Data.MyAdapter
+import com.example.facear.Data.imageResourceType
+import com.example.facear.Fragments.FaceArFragment
+import com.example.facear.Helper.PhotoHelper
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
@@ -181,11 +187,41 @@ class SingleFilterActivity : AppCompatActivity() {
     private fun GetAvailableFilter(): ArrayList<FilterItem> {
         return object : ArrayList<FilterItem>() {
             init {
-                add(FilterItem(R.drawable.mustache1, imageResourceType.TEXTURE, "Mustache 1"))
-                add(FilterItem(R.drawable.redlips, imageResourceType.TEXTURE, "Red Lips"))
-                add(FilterItem(R.drawable.first_test, imageResourceType.TEXTURE, "first test"))
-                add(FilterItem(R.drawable.canonical_face_texture, imageResourceType.TEXTURE, "canonical face texture"))
-                add(FilterItem(R.drawable.canonical_mesh_mustache, imageResourceType.TEXTURE, "canonical face texture"))
+                add(
+                    FilterItem(
+                        R.drawable.mustache1,
+                        imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.redlips,
+                        imageResourceType.TEXTURE,
+                        "Red Lips"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.first_test,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.canonical_face_texture,
+                        imageResourceType.TEXTURE,
+                        "canonical face texture"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.canonical_mesh_mustache,
+                        imageResourceType.TEXTURE,
+                        "canonical face texture"
+                    )
+                )
                 add(
                     FilterItem(
                         R.drawable.blackeyelash,

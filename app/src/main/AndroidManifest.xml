@@ -22,14 +22,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".FaceFilterSelectionActivity"
+            android:name=".Actvities.FaceFilterSelectionActivity"
             android:screenOrientation="portrait">
             >
         </activity>
         <activity
-            android:name=".CustomFilterActivity"
+            android:name=".Actvities.CustomFilterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".LauncherActivity" android:screenOrientation="portrait">
+        <activity android:name=".Actvities.LauncherActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +37,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SingleFilterActivity"
+            android:name=".Actvities.SingleFilterActivity"
             android:screenOrientation="portrait"/>
 
         <meta-data

@@ -1,10 +1,13 @@
-package com.example.facear
+package com.example.facear.Actvities
 
 import android.app.ActivityManager
 import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.facear.Data.CustomFaceNode
+import com.example.facear.Fragments.FaceArFragment
+import com.example.facear.R
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
@@ -50,7 +53,16 @@ class CustomFilterActivity : AppCompatActivity() {
                 ?.getAllTrackables(AugmentedFace::class.java)?.let {
                     for (f in it) {
                         if (!faceNodeMap.containsKey(f)) {
-                            val faceNode = CustomFaceNode(f, this, leftEyeRes, rightEyeRes, noseRes, mouthRes, mustacheRes)
+                            val faceNode =
+                                CustomFaceNode(
+                                    f,
+                                    this,
+                                    leftEyeRes,
+                                    rightEyeRes,
+                                    noseRes,
+                                    mouthRes,
+                                    mustacheRes
+                                )
                             faceNode.setParent(scene)
                             faceNodeMap.put(f, faceNode)
                         }

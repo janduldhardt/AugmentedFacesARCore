@@ -1,10 +1,14 @@
-package com.example.facear
+package com.example.facear.Actvities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.facear.Data.FilterItem
+import com.example.facear.Data.MyAdapter
+import com.example.facear.R
+import com.example.facear.Data.imageResourceType
 import kotlinx.android.synthetic.main.activity_face_filter_selection.*
 import java.util.ArrayList
 
@@ -96,9 +100,69 @@ class FaceFilterSelectionActivity : AppCompatActivity() {
     private fun GetAvailableFilter(): ArrayList<FilterItem> {
         return object : ArrayList<FilterItem>() {
             init {
-                add(FilterItem(R.drawable.star, imageResourceType.TEXTURE, "Mustache 1"))
-                add(FilterItem(R.drawable.red_clownnose, imageResourceType.TEXTURE, "Red Lips"))
-                add(FilterItem(R.drawable.mustache, imageResourceType.TEXTURE, "first test"))
+                add(
+                    FilterItem(
+                        R.drawable.star,
+                        imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.red_clownnose,
+                        imageResourceType.TEXTURE,
+                        "Red Lips"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.mustache,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.mustache2,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.mustache3,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.mustache4,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.mustache5,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.comic_sun,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.burning_sun,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
             }
         }
 
