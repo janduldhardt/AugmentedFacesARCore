@@ -61,6 +61,21 @@ class FaceFilterSelectionActivity : AppCompatActivity() {
             mustacheResId = this.currentResId;
         }
 
+        btn_clear.setOnClickListener {
+            this.currentResId = R.drawable.empty
+            btn_left_eye.background = getDrawable(this.currentResId)
+            leftEyeResId = this.currentResId;
+            btn_right_eye.background = getDrawable(this.currentResId)
+            rightEyeResId = this.currentResId;
+            btn_nose.background = getDrawable(this.currentResId)
+            noseResId = this.currentResId;
+            btn_mouth.background = getDrawable(this.currentResId)
+            mouthResId = this.currentResId;
+            btn_mustache.background = getDrawable(this.currentResId)
+            mustacheResId = this.currentResId;
+
+        }
+
 
 
         btn_apply.setOnClickListener {

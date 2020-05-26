@@ -7,13 +7,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.facear.Data.CustomFaceNode
 import com.example.facear.Fragments.FaceArFragment
+import com.example.facear.Helper.PhotoHelper
 import com.example.facear.R
 import com.google.ar.core.ArCoreApk
 import com.google.ar.core.AugmentedFace
 import com.google.ar.core.TrackingState
 import com.google.ar.sceneform.rendering.Renderable
 import kotlinx.android.synthetic.main.activity_custom_filter.*
-import kotlinx.android.synthetic.main.activity_single_filter.face_fragment
+import kotlinx.android.synthetic.main.activity_custom_filter.coordinator
+import kotlinx.android.synthetic.main.activity_custom_filter.fap
 
 class CustomFilterActivity : AppCompatActivity() {
     companion object {
@@ -23,6 +25,7 @@ class CustomFilterActivity : AppCompatActivity() {
     lateinit var arFragment: FaceArFragment
     var faceNodeMap = HashMap<AugmentedFace, CustomFaceNode>()
 
+    val photoHelper = PhotoHelper()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +45,13 @@ class CustomFilterActivity : AppCompatActivity() {
 
         btn_face.setOnClickListener {
             faceButtonClicked()
+        }
+        fap.setOnClickListener {
+            photoHelper.takePhoto(
+                this.applicationContext,
+                arFragment.arSceneView,
+                coordinator
+            )
         }
 
         val sceneView = arFragment.arSceneView
@@ -83,6 +93,7 @@ class CustomFilterActivity : AppCompatActivity() {
     }
 
     private fun faceButtonClicked() {
+        super.finish()
     }
 
     private fun checkIsSupportedDeviceOrFinish() : Boolean {

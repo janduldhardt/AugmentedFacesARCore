@@ -47,7 +47,7 @@ class SingleFilterActivity : AppCompatActivity() {
     private var isChangeTexture: Boolean = false
     private var modelDataset = GetAvailableModelFilter()
     private var textureDataset = GetAvailableTextureFilter()
-    private var datasetCounter = 1
+    private var datasetCounter = 0
 
     val photoHelper = PhotoHelper()
 
@@ -283,5 +283,5 @@ class SingleFilterActivity : AppCompatActivity() {
         }
         return true
     }
-    
+
 }
