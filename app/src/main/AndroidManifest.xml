@@ -21,13 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Actvities.TestPerformanceActivity"></activity>
         <activity
             android:name=".Actvities.FaceFilterSelectionActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Actvities.CustomFilterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Actvities.LauncherActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".Actvities.LauncherActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,7 +39,7 @@
         </activity>
         <activity
             android:name=".Actvities.SingleFilterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.ar.core"

@@ -73,10 +73,10 @@ class SingleFilterActivity : AppCompatActivity() {
 
 
         arFragment = face_fragment as FaceArFragment
-        Texture.builder()
-            .setSource(this, R.drawable.mustache1)
-            .build()
-            .thenAccept { texture -> faceMeshTexture = texture }
+//        Texture.builder()
+//            .setSource(this, R.drawable.mustache1)
+//            .build()
+//            .thenAccept { texture -> faceMeshTexture = texture }
 
 
         val sceneView = arFragment.arSceneView
@@ -283,4 +283,5 @@ class SingleFilterActivity : AppCompatActivity() {
         }
         return true
     }
+    
 }

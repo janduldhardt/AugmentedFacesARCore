@@ -13,8 +13,13 @@ class LauncherActivity : AppCompatActivity() {
         setContentView(R.layout.activity_launcher)
 
 
+//        btn_singleFilter.setOnClickListener {
+//            val intent = Intent(this, SingleFilterActivity::class.java)
+//            startActivity(intent)
+//        }
+
         btn_singleFilter.setOnClickListener {
-            val intent = Intent(this, SingleFilterActivity::class.java)
+            val intent = Intent(this, TestPerformanceActivity::class.java)
             startActivity(intent)
         }
 
