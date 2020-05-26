@@ -23,9 +23,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Actvities.FaceFilterSelectionActivity"
-            android:screenOrientation="portrait">
-            >
-        </activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Actvities.CustomFilterActivity"
             android:screenOrientation="portrait" />
