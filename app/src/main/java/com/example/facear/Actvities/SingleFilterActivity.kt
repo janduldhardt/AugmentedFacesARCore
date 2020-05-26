@@ -73,10 +73,6 @@ class SingleFilterActivity : AppCompatActivity() {
 
 
         arFragment = face_fragment as FaceArFragment
-//        Texture.builder()
-//            .setSource(this, R.drawable.mustache1)
-//            .build()
-//            .thenAccept { texture -> faceMeshTexture = texture }
 
 
         val sceneView = arFragment.arSceneView
@@ -193,6 +189,22 @@ class SingleFilterActivity : AppCompatActivity() {
                         R.drawable.fox_face_preview
                     )
                 )
+                add(
+                    FilterItem(
+                        R.raw.yellow_sunglasses,
+                        imageResourceType.MODEL_RENDERABLE,
+                        "Mustache 1",
+                        R.drawable.yellow_sunglasses_preview
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.raw.sunglasses,
+                        imageResourceType.MODEL_RENDERABLE,
+                        "Mustache 1",
+                        R.drawable.black_sunglasses_preview
+                    )
+                )
             }
         }
     }
@@ -202,7 +214,28 @@ class SingleFilterActivity : AppCompatActivity() {
             init {
                 add(
                     FilterItem(
+                        R.drawable.fox_face_mesh_texture,
+                        imageResourceType.TEXTURE,
+                        "first test"
+                    )
+                )
+                add(
+                    FilterItem(
                         R.drawable.mustache1,
+                        imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.red_yellow_eye,
+                        imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.black_openings,
                         imageResourceType.TEXTURE,
                         "Mustache 1"
                     )
@@ -212,13 +245,6 @@ class SingleFilterActivity : AppCompatActivity() {
                         R.drawable.redlips,
                         imageResourceType.TEXTURE,
                         "Red Lips"
-                    )
-                )
-                add(
-                    FilterItem(
-                        R.drawable.first_test,
-                        imageResourceType.TEXTURE,
-                        "first test"
                     )
                 )
                 add(
