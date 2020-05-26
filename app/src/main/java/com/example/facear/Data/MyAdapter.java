@@ -71,7 +71,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         FilterItem currentItem = mDataset.get(position);
-        holder.imageView.setImageResource(currentItem.getImageResource());
+        holder.imageView.setImageResource(currentItem.getImagePreviewRes());
 
     }
 

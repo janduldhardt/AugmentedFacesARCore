@@ -45,6 +45,9 @@ class SingleFilterActivity : AppCompatActivity() {
 
     private var isChangeModel: Boolean = false
     private var isChangeTexture: Boolean = false
+    private var modelDataset = GetAvailableModelFilter()
+    private var textureDataset = GetAvailableTextureFilter()
+    private var datasetCounter = 1
 
     val photoHelper = PhotoHelper()
 
@@ -66,10 +69,7 @@ class SingleFilterActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_single_filter)
 
-
-        val myDataset = GetAvailableFilter()
-
-        SetRecyclerView(myDataset)
+        SetRecyclerView(textureDataset)
 
 
         arFragment = face_fragment as FaceArFragment
@@ -78,25 +78,6 @@ class SingleFilterActivity : AppCompatActivity() {
             .build()
             .thenAccept { texture -> faceMeshTexture = texture }
 
-
-        ModelRenderable.builder()
-            .setSource(this, R.raw.sunglasses)
-            .build()
-            .thenAccept { modelRenderable ->
-                glasses.add(modelRenderable)
-                faceRegionsRenderable = modelRenderable
-                modelRenderable.isShadowCaster = false
-                modelRenderable.isShadowReceiver = false
-            }
-
-        ModelRenderable.builder()
-            .setSource(this, R.raw.yellow_sunglasses)
-            .build()
-            .thenAccept { modelRenderable ->
-                glasses.add(modelRenderable)
-                modelRenderable.isShadowCaster = false
-                modelRenderable.isShadowReceiver = false
-            }
 
         val sceneView = arFragment.arSceneView
         sceneView.cameraStreamRenderPriority = Renderable.RENDER_PRIORITY_FIRST
@@ -110,40 +91,46 @@ class SingleFilterActivity : AppCompatActivity() {
             )
         }
 
-        scene.addOnUpdateListener {
-            if (faceRegionsRenderable != null) {
-                sceneView.session
-                    ?.getAllTrackables(AugmentedFace::class.java)?.let {
-                        for (f in it) {
-                            if (!faceNodeMap.containsKey(f)) {
-                                val faceNode = AugmentedFaceNode(f)
-                                faceNode.setParent(scene)
-                                faceNode.faceRegionsRenderable = faceRegionsRenderable
-                                faceNodeMap.put(f, faceNode)
-                            } else if (isChangeModel) {
-                                faceNodeMap.getValue(f).faceRegionsRenderable =
-                                    faceRegionsRenderable
-                            } else if (isChangeTexture) {
-                                faceNodeMap.getValue(f).faceMeshTexture =
-                                    faceMeshTexture
-                            }
-                        }
-                        isChangeModel = false
-                        isChangeTexture = false
+        btn_change_filter_data.setOnClickListener {
+            datasetCounter++
+            if (datasetCounter % 2 == 0)
+                SetRecyclerView(textureDataset)
+            else
+                SetRecyclerView(modelDataset)
+        }
 
-                        // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
-                        val iter = faceNodeMap.entries.iterator()
-                        while (iter.hasNext()) {
-                            val entry = iter.next()
-                            val face = entry.key
-                            if (face.trackingState == TrackingState.STOPPED) {
-                                val faceNode = entry.value
-                                faceNode.setParent(null)
-                                iter.remove()
-                            }
+        scene.addOnUpdateListener {
+            sceneView.session
+                ?.getAllTrackables(AugmentedFace::class.java)?.let {
+                    for (f in it) {
+                        if (!faceNodeMap.containsKey(f)) {
+                            val faceNode = AugmentedFaceNode(f)
+                            faceNode.setParent(scene)
+                            faceNode.faceRegionsRenderable = faceRegionsRenderable
+                            faceNodeMap.put(f, faceNode)
+                        } else if (isChangeModel) {
+                            faceNodeMap.getValue(f).faceRegionsRenderable =
+                                faceRegionsRenderable
+                        } else if (isChangeTexture) {
+                            faceNodeMap.getValue(f).faceMeshTexture =
+                                faceMeshTexture
                         }
                     }
-            }
+                    isChangeModel = false
+                    isChangeTexture = false
+
+                    // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
+                    val iter = faceNodeMap.entries.iterator()
+                    while (iter.hasNext()) {
+                        val entry = iter.next()
+                        val face = entry.key
+                        if (face.trackingState == TrackingState.STOPPED) {
+                            val faceNode = entry.value
+                            faceNode.setParent(null)
+                            iter.remove()
+                        }
+                    }
+                }
         }
     }
 
@@ -194,20 +181,29 @@ class SingleFilterActivity : AppCompatActivity() {
             }
     }
 
-    private fun GetAvailableFilter(): ArrayList<FilterItem> {
+    private fun GetAvailableModelFilter(): ArrayList<FilterItem> {
+        return object : ArrayList<FilterItem>() {
+            init {
+
+                add(
+                    FilterItem(
+                        R.raw.fox_face,
+                        imageResourceType.MODEL_RENDERABLE,
+                        "Mustache 1",
+                        R.drawable.fox_face_preview
+                    )
+                )
+            }
+        }
+    }
+
+    private fun GetAvailableTextureFilter(): ArrayList<FilterItem> {
         return object : ArrayList<FilterItem>() {
             init {
                 add(
                     FilterItem(
                         R.drawable.mustache1,
                         imageResourceType.TEXTURE,
-                        "Mustache 1"
-                    )
-                )
-                add(
-                    FilterItem(
-                        R.raw.fox_face,
-                        imageResourceType.MODEL_RENDERABLE,
                         "Mustache 1"
                     )
                 )
@@ -266,7 +262,9 @@ class SingleFilterActivity : AppCompatActivity() {
     }
 
     fun checkIsSupportedDeviceOrFinish(): Boolean {
-        if (ArCoreApk.getInstance().checkAvailability(this) == ArCoreApk.Availability.UNSUPPORTED_DEVICE_NOT_CAPABLE) {
+        if (ArCoreApk.getInstance()
+                .checkAvailability(this) == ArCoreApk.Availability.UNSUPPORTED_DEVICE_NOT_CAPABLE
+        ) {
             Toast.makeText(this, "Augmented Faces requires ARCore", Toast.LENGTH_LONG).show()
             finish()
             return false
