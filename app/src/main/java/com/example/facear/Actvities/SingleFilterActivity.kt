@@ -43,7 +43,7 @@ class SingleFilterActivity : AppCompatActivity() {
 
     var faceNodeMap = HashMap<AugmentedFace, AugmentedFaceNode>()
 
-    private var changeModel: Boolean = false
+    private var isChangeModel: Boolean = false
     private var isChangeTexture: Boolean = false
 
     val photoHelper = PhotoHelper()
@@ -108,11 +108,6 @@ class SingleFilterActivity : AppCompatActivity() {
                 arFragment.arSceneView,
                 coordinator
             )
-//            val snackBar = Snackbar.make(
-//                coordinator,
-//                "Look at me, I'm a fancy snackbar", Snackbar.LENGTH_LONG
-//            );
-//            snackBar.show();
         }
 
         scene.addOnUpdateListener {
@@ -123,9 +118,9 @@ class SingleFilterActivity : AppCompatActivity() {
                             if (!faceNodeMap.containsKey(f)) {
                                 val faceNode = AugmentedFaceNode(f)
                                 faceNode.setParent(scene)
-//                                faceNode.faceRegionsRenderable = faceRegionsRenderable
+                                faceNode.faceRegionsRenderable = faceRegionsRenderable
                                 faceNodeMap.put(f, faceNode)
-                            } else if (changeModel) {
+                            } else if (isChangeModel) {
                                 faceNodeMap.getValue(f).faceRegionsRenderable =
                                     faceRegionsRenderable
                             } else if (isChangeTexture) {
@@ -133,7 +128,7 @@ class SingleFilterActivity : AppCompatActivity() {
                                     faceMeshTexture
                             }
                         }
-                        changeModel = false
+                        isChangeModel = false
                         isChangeTexture = false
 
                         // Remove any AugmentedFaceNodes associated with an AugmentedFace that stopped tracking.
@@ -159,6 +154,8 @@ class SingleFilterActivity : AppCompatActivity() {
             var filterItem = myDataset.get(position)
             if (filterItem.imageResourceType == imageResourceType.TEXTURE)
                 changeTexture(filterItem.imageResource)
+            if (filterItem.imageResourceType == imageResourceType.MODEL_RENDERABLE)
+                changeModelRenderable(filterItem.imageResource)
         }
 
         recyclerView = findViewById<RecyclerView>(R.id.rv_filter).apply {
@@ -172,6 +169,19 @@ class SingleFilterActivity : AppCompatActivity() {
             // specify an viewAdapter (see also next example)
             adapter = viewAdapter
         }
+    }
+
+
+    private fun changeModelRenderable(imageResource: Int) {
+        ModelRenderable.builder()
+            .setSource(this, imageResource)
+            .build()
+            .thenAccept { modelRenderable ->
+                faceRegionsRenderable = modelRenderable
+                modelRenderable.isShadowCaster = false
+                modelRenderable.isShadowReceiver = false
+                isChangeModel = true
+            }
     }
 
     private fun changeTexture(imageResource: Int) {
@@ -191,6 +201,13 @@ class SingleFilterActivity : AppCompatActivity() {
                     FilterItem(
                         R.drawable.mustache1,
                         imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.raw.fox_face,
+                        imageResourceType.MODEL_RENDERABLE,
                         "Mustache 1"
                     )
                 )
