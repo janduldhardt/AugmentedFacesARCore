@@ -11,7 +11,7 @@ For implementation this Android application written in Kotlin uses ARCore SDK by
 - Sceneform 1.15
 - CircleImageView by [hdodenhof](https://github.com/hdodenhof/CircleImageView)
 
-## Requirments to use the app
+## Requirements to use the app
 This application needs to use OpenGL version 3.0 or higher and needs to support ARCore
 [List of supported devices](https://developers.google.com/ar/discover/supported-devices)
 
