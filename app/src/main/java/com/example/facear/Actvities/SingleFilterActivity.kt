@@ -185,7 +185,7 @@ class SingleFilterActivity : AppCompatActivity() {
                     FilterItem(
                         R.raw.fox_face,
                         imageResourceType.MODEL_RENDERABLE,
-                        "Mustache 1",
+                        "",
                         R.drawable.fox_face_preview
                     )
                 )
@@ -193,7 +193,7 @@ class SingleFilterActivity : AppCompatActivity() {
                     FilterItem(
                         R.raw.yellow_sunglasses,
                         imageResourceType.MODEL_RENDERABLE,
-                        "Mustache 1",
+                        "",
                         R.drawable.yellow_sunglasses_preview
                     )
                 )
@@ -201,7 +201,7 @@ class SingleFilterActivity : AppCompatActivity() {
                     FilterItem(
                         R.raw.sunglasses,
                         imageResourceType.MODEL_RENDERABLE,
-                        "Mustache 1",
+                        "",
                         R.drawable.black_sunglasses_preview
                     )
                 )
@@ -216,77 +216,84 @@ class SingleFilterActivity : AppCompatActivity() {
                     FilterItem(
                         R.drawable.fox_face_mesh_texture,
                         imageResourceType.TEXTURE,
-                        "first test"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.obama1,
                         imageResourceType.TEXTURE,
-                        "Mustache 1"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.mustache1,
                         imageResourceType.TEXTURE,
-                        "Mustache 1"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.red_yellow_eye,
                         imageResourceType.TEXTURE,
-                        "Mustache 1"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.black_openings,
                         imageResourceType.TEXTURE,
-                        "Mustache 1"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.redlips,
                         imageResourceType.TEXTURE,
-                        "Red Lips"
+                        ""
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.greenlines,
+                        imageResourceType.TEXTURE,
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.canonical_face_texture,
                         imageResourceType.TEXTURE,
-                        "canonical face texture"
-                    )
-                )
-                add(
-                    FilterItem(
-                        R.drawable.canonical_mesh_mustache,
-                        imageResourceType.TEXTURE,
-                        "canonical face texture"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.blackeyelash,
                         imageResourceType.TEXTURE,
-                        "black eye lash"
+                        ""
+                    )
+                )
+                add(
+                    FilterItem(
+                        R.drawable.golden_face,
+                        imageResourceType.TEXTURE,
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.harrypotterscar,
                         imageResourceType.TEXTURE,
-                        "harry potter scar"
+                        ""
                     )
                 )
                 add(
                     FilterItem(
                         R.drawable.salmon_lips,
                         imageResourceType.TEXTURE,
-                        "salmon lips"
+                        ""
                     )
                 )
             }
