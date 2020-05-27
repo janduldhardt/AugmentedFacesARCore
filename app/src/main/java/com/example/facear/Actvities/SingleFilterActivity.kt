@@ -221,6 +221,13 @@ class SingleFilterActivity : AppCompatActivity() {
                 )
                 add(
                     FilterItem(
+                        R.drawable.obama1,
+                        imageResourceType.TEXTURE,
+                        "Mustache 1"
+                    )
+                )
+                add(
+                    FilterItem(
                         R.drawable.mustache1,
                         imageResourceType.TEXTURE,
                         "Mustache 1"
