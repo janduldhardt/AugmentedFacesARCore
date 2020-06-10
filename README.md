@@ -1,6 +1,8 @@
 # AugmentedFacesARCore
 This is my term project for Computer Vision / Intelligent System Development 2/2019.
 
+Check out [Presentation.pdf](https://github.com/janduldhardt/AugmentedFacesARCore/blob/master/Presentation.pdf) 
+
 ## Goal
 The goal is to detect faces and apply graphics on those detected faces.
 For implementation this Android application written in Kotlin uses ARCore SDK by Google.
@@ -19,4 +21,7 @@ This application needs to use OpenGL version 3.0 or higher and needs to support 
 The app allows the user two ways of applying graphics:
 - Apply via facial landmarks
 - Apply based on face mesh
+
+![alt text](https://github.com/janduldhardt/AugmentedFacesARCore/blob/master/Sample1.png?raw=true)
+
 
