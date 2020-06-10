@@ -2,6 +2,7 @@
 This is my term project for Computer Vision / Intelligent System Development 2/2019.
 
 Check out [Presentation.pdf](https://github.com/janduldhardt/AugmentedFacesARCore/blob/master/Presentation.pdf) 
+or the presentation [video](https://drive.google.com/file/d/18GuDxeR4XwS8XtEvhr0xqwwJsLcqDcIM/view?fbclid=IwAR0dr-yAUX-A4CDTcAsNsEbAilOEclBi_zDvf5Y01vi7T7mnXsktkhYxMhA)
 
 ## Goal
 The goal is to detect faces and apply graphics on those detected faces.
